@@ -1,0 +1,873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CiftlikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cins">
+          <Key>
+            <PropertyRef Name="CinsID" />
+          </Key>
+          <Property Name="CinsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CinsAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+          </Key>
+          <Property Name="HayvanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KupeNo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CinsId" Type="int" Nullable="false" />
+          <Property Name="Agirlik" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="OlcumTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullanciRolId" Type="int" />
+          <Property Name="KullaniciAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Aktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RolKod" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="StokID" />
+          </Key>
+          <Property Name="StokID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StokTurId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="StokGirisTarihi" Type="datetime" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StokHareket">
+          <Key>
+            <PropertyRef Name="StokHareketID" />
+          </Key>
+          <Property Name="StokHareketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StokId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StokTur">
+          <Key>
+            <PropertyRef Name="StokTurID" />
+          </Key>
+          <Property Name="StokTurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StokTurAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SutTakip">
+          <Key>
+            <PropertyRef Name="SutHareketId" />
+          </Key>
+          <Property Name="SutHareketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HayvanId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SutUretim">
+          <Key>
+            <PropertyRef Name="SutUretimID" />
+          </Key>
+          <Property Name="SutUretimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HayvanId" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" Nullable="false" />
+          <Property Name="ZamanId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Zaman">
+          <Key>
+            <PropertyRef Name="ZamanID" />
+          </Key>
+          <Property Name="ZamanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZamanAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vHayvan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vHayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="CinsId" />
+            <PropertyRef Name="CinsAd" />
+            <PropertyRef Name="Agirlik" />
+            <PropertyRef Name="OlcumTarihi" />
+          </Key>
+          <Property Name="HayvanID" Type="int" Nullable="false" />
+          <Property Name="KupeNo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CinsId" Type="int" Nullable="false" />
+          <Property Name="CinsAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Agirlik" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="OlcumTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vKullanici' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vKullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+            <PropertyRef Name="RolAd" />
+            <PropertyRef Name="RolKod" />
+            <PropertyRef Name="KullaniciAd" />
+            <PropertyRef Name="Sifre" />
+            <PropertyRef Name="Aktif" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="KullanciRolId" Type="int" />
+          <Property Name="RolAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RolKod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KullaniciAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Aktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vStok' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vStok">
+          <Key>
+            <PropertyRef Name="StokID" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="StokTurId" />
+            <PropertyRef Name="StokTurAd" />
+            <PropertyRef Name="StokGirisTarihi" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="StokID" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="StokTurId" Type="int" Nullable="false" />
+          <Property Name="StokTurAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StokGirisTarihi" Type="datetime" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vStokHareket' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vStokHareket">
+          <Key>
+            <PropertyRef Name="StokHareketID" />
+            <PropertyRef Name="StokTurAd" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="StokHareketID" Type="int" Nullable="false" />
+          <Property Name="StokTurAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vSutTakip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSutTakip">
+          <Key>
+            <PropertyRef Name="SutHareketId" />
+            <PropertyRef Name="HayvanId" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="SutHareketId" Type="int" Nullable="false" />
+          <Property Name="HayvanId" Type="int" Nullable="false" />
+          <Property Name="KupeNo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Miktar" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ciftlik.dbo.vSutUretim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSutUretim">
+          <Key>
+            <PropertyRef Name="SutUretimID" />
+            <PropertyRef Name="HayvanId" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="Tarih" />
+            <PropertyRef Name="ZamanId" />
+            <PropertyRef Name="ZamanAd" />
+            <PropertyRef Name="Miktar" />
+          </Key>
+          <Property Name="SutUretimID" Type="int" Nullable="false" />
+          <Property Name="HayvanId" Type="int" Nullable="false" />
+          <Property Name="KupeNo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" Nullable="false" />
+          <Property Name="ZamanId" Type="int" Nullable="false" />
+          <Property Name="ZamanAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Hayvan_Cins">
+          <End Role="Cins" Type="Self.Cins" Multiplicity="1" />
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cins">
+              <PropertyRef Name="CinsID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="CinsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kullanici_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="Kullanici">
+              <PropertyRef Name="KullanciRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_StokTur">
+          <End Role="StokTur" Type="Self.StokTur" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StokTur">
+              <PropertyRef Name="StokTurID" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="StokTurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SutUretim_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="1" />
+          <End Role="SutUretim" Type="Self.SutUretim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="SutUretim">
+              <PropertyRef Name="HayvanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SutUretim_Zaman">
+          <End Role="Zaman" Type="Self.Zaman" Multiplicity="1" />
+          <End Role="SutUretim" Type="Self.SutUretim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaman">
+              <PropertyRef Name="ZamanID" />
+            </Principal>
+            <Dependent Role="SutUretim">
+              <PropertyRef Name="ZamanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CiftlikModelStoreContainer">
+          <EntitySet Name="Cins" EntityType="Self.Cins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hayvan" EntityType="Self.Hayvan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StokHareket" EntityType="Self.StokHareket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StokTur" EntityType="Self.StokTur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SutTakip" EntityType="Self.SutTakip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SutUretim" EntityType="Self.SutUretim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zaman" EntityType="Self.Zaman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vHayvan" EntityType="Self.vHayvan" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vHayvan].[HayvanID] AS [HayvanID], 
+    [vHayvan].[KupeNo] AS [KupeNo], 
+    [vHayvan].[CinsId] AS [CinsId], 
+    [vHayvan].[CinsAd] AS [CinsAd], 
+    [vHayvan].[Agirlik] AS [Agirlik], 
+    [vHayvan].[OlcumTarihi] AS [OlcumTarihi]
+    FROM [dbo].[vHayvan] AS [vHayvan]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vKullanici" EntityType="Self.vKullanici" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vKullanici].[KullaniciID] AS [KullaniciID], 
+    [vKullanici].[KullanciRolId] AS [KullanciRolId], 
+    [vKullanici].[RolAd] AS [RolAd], 
+    [vKullanici].[RolKod] AS [RolKod], 
+    [vKullanici].[KullaniciAd] AS [KullaniciAd], 
+    [vKullanici].[Sifre] AS [Sifre], 
+    [vKullanici].[Aktif] AS [Aktif]
+    FROM [dbo].[vKullanici] AS [vKullanici]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vStok" EntityType="Self.vStok" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vStok].[StokID] AS [StokID], 
+    [vStok].[Miktar] AS [Miktar], 
+    [vStok].[StokTurId] AS [StokTurId], 
+    [vStok].[StokTurAd] AS [StokTurAd], 
+    [vStok].[StokGirisTarihi] AS [StokGirisTarihi], 
+    [vStok].[IslemTarihi] AS [IslemTarihi]
+    FROM [dbo].[vStok] AS [vStok]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vStokHareket" EntityType="Self.vStokHareket" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vStokHareket].[StokHareketID] AS [StokHareketID], 
+    [vStokHareket].[StokTurAd] AS [StokTurAd], 
+    [vStokHareket].[Miktar] AS [Miktar], 
+    [vStokHareket].[IslemTarihi] AS [IslemTarihi]
+    FROM [dbo].[vStokHareket] AS [vStokHareket]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSutTakip" EntityType="Self.vSutTakip" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSutTakip].[SutHareketId] AS [SutHareketId], 
+    [vSutTakip].[HayvanId] AS [HayvanId], 
+    [vSutTakip].[KupeNo] AS [KupeNo], 
+    [vSutTakip].[Miktar] AS [Miktar], 
+    [vSutTakip].[IslemTarihi] AS [IslemTarihi]
+    FROM [dbo].[vSutTakip] AS [vSutTakip]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vSutUretim" EntityType="Self.vSutUretim" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSutUretim].[SutUretimID] AS [SutUretimID], 
+    [vSutUretim].[HayvanId] AS [HayvanId], 
+    [vSutUretim].[KupeNo] AS [KupeNo], 
+    [vSutUretim].[Tarih] AS [Tarih], 
+    [vSutUretim].[ZamanId] AS [ZamanId], 
+    [vSutUretim].[ZamanAd] AS [ZamanAd], 
+    [vSutUretim].[Miktar] AS [Miktar]
+    FROM [dbo].[vSutUretim] AS [vSutUretim]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Hayvan_Cins" Association="Self.FK_Hayvan_Cins">
+            <End Role="Cins" EntitySet="Cins" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kullanici_Rol" Association="Self.FK_Kullanici_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Kullanici" EntitySet="Kullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_StokTur" Association="Self.FK_Stok_StokTur">
+            <End Role="StokTur" EntitySet="StokTur" />
+            <End Role="Stok" EntitySet="Stok" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SutUretim_Hayvan" Association="Self.FK_SutUretim_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="SutUretim" EntitySet="SutUretim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SutUretim_Zaman" Association="Self.FK_SutUretim_Zaman">
+            <End Role="Zaman" EntitySet="Zaman" />
+            <End Role="SutUretim" EntitySet="SutUretim" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CiftlikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cins">
+          <Key>
+            <PropertyRef Name="CinsID" />
+          </Key>
+          <Property Name="CinsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CinsAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Hayvan" Relationship="CiftlikModel.FK_Hayvan_Cins" FromRole="Cins" ToRole="Hayvan" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullanciRolId" Type="Int32" />
+          <Property Name="KullaniciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Aktif" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Kullanici_Rol" FromRole="Kullanici" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RolKod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kullanici" Relationship="Self.FK_Kullanici_Rol" FromRole="Rol" ToRole="Kullanici" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="StokID" />
+          </Key>
+          <Property Name="StokID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StokTurId" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="StokGirisTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="StokTur" Relationship="Self.FK_Stok_StokTur" FromRole="Stok" ToRole="StokTur" />
+        </EntityType>
+        <EntityType Name="StokHareket">
+          <Key>
+            <PropertyRef Name="StokHareketID" />
+          </Key>
+          <Property Name="StokHareketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StokId" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="StokTur">
+          <Key>
+            <PropertyRef Name="StokTurID" />
+          </Key>
+          <Property Name="StokTurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StokTurAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stok" Relationship="Self.FK_Stok_StokTur" FromRole="StokTur" ToRole="Stok" />
+        </EntityType>
+        <EntityType Name="SutTakip">
+          <Key>
+            <PropertyRef Name="SutHareketId" />
+          </Key>
+          <Property Name="SutHareketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HayvanId" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SutUretim">
+          <Key>
+            <PropertyRef Name="SutUretimID" />
+          </Key>
+          <Property Name="SutUretimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HayvanId" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ZamanId" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Zaman" Relationship="Self.FK_SutUretim_Zaman" FromRole="SutUretim" ToRole="Zaman" />
+          <NavigationProperty Name="Hayvan" Relationship="CiftlikModel.FK_SutUretim_Hayvan" FromRole="SutUretim" ToRole="Hayvan" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Zaman">
+          <Key>
+            <PropertyRef Name="ZamanID" />
+          </Key>
+          <Property Name="ZamanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZamanAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SutUretim" Relationship="Self.FK_SutUretim_Zaman" FromRole="Zaman" ToRole="SutUretim" />
+        </EntityType>
+        <EntityType Name="vHayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="CinsId" />
+            <PropertyRef Name="CinsAd" />
+            <PropertyRef Name="Agirlik" />
+            <PropertyRef Name="OlcumTarihi" />
+          </Key>
+          <Property Name="HayvanID" Type="Int32" Nullable="false" />
+          <Property Name="KupeNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CinsId" Type="Int32" Nullable="false" />
+          <Property Name="CinsAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Agirlik" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="OlcumTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vKullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+            <PropertyRef Name="RolAd" />
+            <PropertyRef Name="RolKod" />
+            <PropertyRef Name="KullaniciAd" />
+            <PropertyRef Name="Sifre" />
+            <PropertyRef Name="Aktif" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="KullanciRolId" Type="Int32" />
+          <Property Name="RolAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RolKod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KullaniciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Aktif" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vStok">
+          <Key>
+            <PropertyRef Name="StokID" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="StokTurId" />
+            <PropertyRef Name="StokTurAd" />
+            <PropertyRef Name="StokGirisTarihi" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="StokID" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="StokTurId" Type="Int32" Nullable="false" />
+          <Property Name="StokTurAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StokGirisTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vStokHareket">
+          <Key>
+            <PropertyRef Name="StokHareketID" />
+            <PropertyRef Name="StokTurAd" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="StokHareketID" Type="Int32" Nullable="false" />
+          <Property Name="StokTurAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vSutTakip">
+          <Key>
+            <PropertyRef Name="SutHareketId" />
+            <PropertyRef Name="HayvanId" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="Miktar" />
+            <PropertyRef Name="IslemTarihi" />
+          </Key>
+          <Property Name="SutHareketId" Type="Int32" Nullable="false" />
+          <Property Name="HayvanId" Type="Int32" Nullable="false" />
+          <Property Name="KupeNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vSutUretim">
+          <Key>
+            <PropertyRef Name="SutUretimID" />
+            <PropertyRef Name="HayvanId" />
+            <PropertyRef Name="KupeNo" />
+            <PropertyRef Name="Tarih" />
+            <PropertyRef Name="ZamanId" />
+            <PropertyRef Name="ZamanAd" />
+            <PropertyRef Name="Miktar" />
+          </Key>
+          <Property Name="SutUretimID" Type="Int32" Nullable="false" />
+          <Property Name="HayvanId" Type="Int32" Nullable="false" />
+          <Property Name="KupeNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ZamanId" Type="Int32" Nullable="false" />
+          <Property Name="ZamanAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Kullanici_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="Kullanici">
+              <PropertyRef Name="KullanciRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_StokTur">
+          <End Role="StokTur" Type="Self.StokTur" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StokTur">
+              <PropertyRef Name="StokTurID" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="StokTurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SutUretim_Zaman">
+          <End Role="Zaman" Type="Self.Zaman" Multiplicity="1" />
+          <End Role="SutUretim" Type="Self.SutUretim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaman">
+              <PropertyRef Name="ZamanID" />
+            </Principal>
+            <Dependent Role="SutUretim">
+              <PropertyRef Name="ZamanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CiftlikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cins" EntityType="Self.Cins" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" />
+          <EntitySet Name="StokHareket" EntityType="Self.StokHareket" />
+          <EntitySet Name="StokTur" EntityType="Self.StokTur" />
+          <EntitySet Name="SutTakip" EntityType="Self.SutTakip" />
+          <EntitySet Name="SutUretim" EntityType="Self.SutUretim" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Zaman" EntityType="Self.Zaman" />
+          <EntitySet Name="vHayvan" EntityType="Self.vHayvan" />
+          <EntitySet Name="vKullanici" EntityType="Self.vKullanici" />
+          <EntitySet Name="vStok" EntityType="Self.vStok" />
+          <EntitySet Name="vStokHareket" EntityType="Self.vStokHareket" />
+          <EntitySet Name="vSutTakip" EntityType="Self.vSutTakip" />
+          <EntitySet Name="vSutUretim" EntityType="Self.vSutUretim" />
+          <AssociationSet Name="FK_Kullanici_Rol" Association="Self.FK_Kullanici_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Kullanici" EntitySet="Kullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_StokTur" Association="Self.FK_Stok_StokTur">
+            <End Role="StokTur" EntitySet="StokTur" />
+            <End Role="Stok" EntitySet="Stok" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SutUretim_Zaman" Association="Self.FK_SutUretim_Zaman">
+            <End Role="Zaman" EntitySet="Zaman" />
+            <End Role="SutUretim" EntitySet="SutUretim" />
+          </AssociationSet>
+          <EntitySet Name="Hayvan" EntityType="CiftlikModel.Hayvan" />
+          <AssociationSet Name="FK_Hayvan_Cins" Association="CiftlikModel.FK_Hayvan_Cins">
+            <End Role="Cins" EntitySet="Cins" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SutUretim_Hayvan" Association="CiftlikModel.FK_SutUretim_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="SutUretim" EntitySet="SutUretim" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Hayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+          </Key>
+          <Property Name="HayvanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KupeNo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CinsId" Type="Int32" Nullable="false" />
+          <Property Name="Agirlik" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="OlcumTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cins" Relationship="CiftlikModel.FK_Hayvan_Cins" FromRole="Hayvan" ToRole="Cins" />
+          <NavigationProperty Name="SutUretim" Relationship="CiftlikModel.FK_SutUretim_Hayvan" FromRole="Hayvan" ToRole="SutUretim" />
+        </EntityType>
+        <Association Name="FK_Hayvan_Cins">
+          <End Type="CiftlikModel.Cins" Role="Cins" Multiplicity="1" />
+          <End Type="CiftlikModel.Hayvan" Role="Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cins">
+              <PropertyRef Name="CinsID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="CinsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SutUretim_Hayvan">
+          <End Type="CiftlikModel.Hayvan" Role="Hayvan" Multiplicity="1" />
+          <End Type="CiftlikModel.SutUretim" Role="SutUretim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="SutUretim">
+              <PropertyRef Name="HayvanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CiftlikModelStoreContainer" CdmEntityContainer="CiftlikEntities">
+          <EntitySetMapping Name="Cins">
+            <EntityTypeMapping TypeName="CiftlikModel.Cins">
+              <MappingFragment StoreEntitySet="Cins">
+                <ScalarProperty Name="CinsID" ColumnName="CinsID" />
+                <ScalarProperty Name="CinsAd" ColumnName="CinsAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="CiftlikModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="KullanciRolId" ColumnName="KullanciRolId" />
+                <ScalarProperty Name="KullaniciAd" ColumnName="KullaniciAd" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="CiftlikModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="RolAd" ColumnName="RolAd" />
+                <ScalarProperty Name="RolKod" ColumnName="RolKod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok">
+            <EntityTypeMapping TypeName="CiftlikModel.Stok">
+              <MappingFragment StoreEntitySet="Stok">
+                <ScalarProperty Name="StokID" ColumnName="StokID" />
+                <ScalarProperty Name="StokTurId" ColumnName="StokTurId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="StokGirisTarihi" ColumnName="StokGirisTarihi" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StokHareket">
+            <EntityTypeMapping TypeName="CiftlikModel.StokHareket">
+              <MappingFragment StoreEntitySet="StokHareket">
+                <ScalarProperty Name="StokHareketID" ColumnName="StokHareketID" />
+                <ScalarProperty Name="StokId" ColumnName="StokId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StokTur">
+            <EntityTypeMapping TypeName="CiftlikModel.StokTur">
+              <MappingFragment StoreEntitySet="StokTur">
+                <ScalarProperty Name="StokTurID" ColumnName="StokTurID" />
+                <ScalarProperty Name="StokTurAd" ColumnName="StokTurAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SutTakip">
+            <EntityTypeMapping TypeName="CiftlikModel.SutTakip">
+              <MappingFragment StoreEntitySet="SutTakip">
+                <ScalarProperty Name="SutHareketId" ColumnName="SutHareketId" />
+                <ScalarProperty Name="HayvanId" ColumnName="HayvanId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SutUretim">
+            <EntityTypeMapping TypeName="CiftlikModel.SutUretim">
+              <MappingFragment StoreEntitySet="SutUretim">
+                <ScalarProperty Name="SutUretimID" ColumnName="SutUretimID" />
+                <ScalarProperty Name="HayvanId" ColumnName="HayvanId" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="ZamanId" ColumnName="ZamanId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CiftlikModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zaman">
+            <EntityTypeMapping TypeName="CiftlikModel.Zaman">
+              <MappingFragment StoreEntitySet="Zaman">
+                <ScalarProperty Name="ZamanID" ColumnName="ZamanID" />
+                <ScalarProperty Name="ZamanAd" ColumnName="ZamanAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vHayvan">
+            <EntityTypeMapping TypeName="CiftlikModel.vHayvan">
+              <MappingFragment StoreEntitySet="vHayvan">
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+                <ScalarProperty Name="KupeNo" ColumnName="KupeNo" />
+                <ScalarProperty Name="CinsId" ColumnName="CinsId" />
+                <ScalarProperty Name="CinsAd" ColumnName="CinsAd" />
+                <ScalarProperty Name="Agirlik" ColumnName="Agirlik" />
+                <ScalarProperty Name="OlcumTarihi" ColumnName="OlcumTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vKullanici">
+            <EntityTypeMapping TypeName="CiftlikModel.vKullanici">
+              <MappingFragment StoreEntitySet="vKullanici">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="KullanciRolId" ColumnName="KullanciRolId" />
+                <ScalarProperty Name="RolAd" ColumnName="RolAd" />
+                <ScalarProperty Name="RolKod" ColumnName="RolKod" />
+                <ScalarProperty Name="KullaniciAd" ColumnName="KullaniciAd" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vStok">
+            <EntityTypeMapping TypeName="CiftlikModel.vStok">
+              <MappingFragment StoreEntitySet="vStok">
+                <ScalarProperty Name="StokID" ColumnName="StokID" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="StokTurId" ColumnName="StokTurId" />
+                <ScalarProperty Name="StokTurAd" ColumnName="StokTurAd" />
+                <ScalarProperty Name="StokGirisTarihi" ColumnName="StokGirisTarihi" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vStokHareket">
+            <EntityTypeMapping TypeName="CiftlikModel.vStokHareket">
+              <MappingFragment StoreEntitySet="vStokHareket">
+                <ScalarProperty Name="StokHareketID" ColumnName="StokHareketID" />
+                <ScalarProperty Name="StokTurAd" ColumnName="StokTurAd" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSutTakip">
+            <EntityTypeMapping TypeName="CiftlikModel.vSutTakip">
+              <MappingFragment StoreEntitySet="vSutTakip">
+                <ScalarProperty Name="SutHareketId" ColumnName="SutHareketId" />
+                <ScalarProperty Name="HayvanId" ColumnName="HayvanId" />
+                <ScalarProperty Name="KupeNo" ColumnName="KupeNo" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSutUretim">
+            <EntityTypeMapping TypeName="CiftlikModel.vSutUretim">
+              <MappingFragment StoreEntitySet="vSutUretim">
+                <ScalarProperty Name="SutUretimID" ColumnName="SutUretimID" />
+                <ScalarProperty Name="HayvanId" ColumnName="HayvanId" />
+                <ScalarProperty Name="KupeNo" ColumnName="KupeNo" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="ZamanId" ColumnName="ZamanId" />
+                <ScalarProperty Name="ZamanAd" ColumnName="ZamanAd" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hayvan">
+            <EntityTypeMapping TypeName="CiftlikModel.Hayvan">
+              <MappingFragment StoreEntitySet="Hayvan">
+                <ScalarProperty Name="OlcumTarihi" ColumnName="OlcumTarihi" />
+                <ScalarProperty Name="Agirlik" ColumnName="Agirlik" />
+                <ScalarProperty Name="CinsId" ColumnName="CinsId" />
+                <ScalarProperty Name="KupeNo" ColumnName="KupeNo" />
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
